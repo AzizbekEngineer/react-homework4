@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logoNav from "../../assets/img/Logo.svg";
 import { IoSearch, IoPersonSharp } from "react-icons/io5";
 import { FaCartPlus } from "react-icons/fa6";
@@ -7,6 +7,8 @@ import { headerItems } from "../../static";
 import heroImg from "../../assets/img/hero.svg";
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <header className="header">
       <nav className="navbar container df">
@@ -27,13 +29,32 @@ const Header = () => {
           <IoSearch />
           <IoPersonSharp />
           <FaCartPlus />
-          <div className="header__btn">
+          <div onClick={() => setShow(true)} className="header__btn">
             <span></span>
             <span></span>
             <span></span>
           </div>
         </div>
       </nav>
+      {show ? (
+        <div onClick={() => setShow(false)} className="overlay"></div>
+      ) : (
+        <></>
+      )}
+      <div className={`sidebar ${show ? "show" : ""}`}>
+        <u className="sidebar__list">
+          {headerItems.map((item, indx) => (
+            <li className="sidebar__item" key={indx}>
+              <a href="">{item}</a>
+            </li>
+          ))}
+          <li className=" sidebar__item__close">
+            <a onClick={() => setShow(false)} href="">
+              x
+            </a>
+          </li>
+        </u>
+      </div>
       <section className="hero container df">
         <div className="hero__left">
           <h2 className="hero__title">Discover Most Suitable Watches</h2>
